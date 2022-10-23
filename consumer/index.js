@@ -7,6 +7,7 @@ const consumer = Kafka.KafkaConsumer({
     "metadata.broker.list" : "localhost:9092"
 }, {}, {});
 
+
 consumer.connect();
 
 consumer
@@ -16,5 +17,7 @@ consumer
         consumer.consume();
     })
     .on("data", (data) => {
-        console.log(`Received message: ${data.value}`)
+        numbers = JSON.parse(data.value);
+        sum = numbers.n1 + numbers.n2;
+        console.log(`${numbers.n1} + ${numbers.n2} = ${sum}`);
     })
